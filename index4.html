@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body>
+    <header></header>
+    <main>
+      <div></div>
+    </main>
+    <footer></footer>
+
+    <script>
+      let l1 = [
+        2, 5, 1, 3, 6, 4, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
+      ];
+      let l2 = [
+        "Lorem",
+        "ipsum",
+        "dolor",
+        "sit",
+        "amet",
+        "consetetur",
+        "sadipscing",
+        "elitr",
+        "sed",
+        "diam",
+        "nonumy",
+        "eirmod",
+        "tempor",
+        "invidunt",
+        "ut",
+        "labore",
+        "et",
+        "dolore",
+        "magna",
+        "aliquyam",
+      ];
+      let l3 = [
+        ["Lukas", "Ada", "Julia"],
+        ["BMW", "Mercedes", "Tesla"],
+        ["Apple", 44, "Orange"],
+        ["Karroten", "Kartoffeln", "Kiwi"],
+        ["Apple", "Banana", "Orange"],
+        [5, "Banana", "Orange"],
+        ["Apple", "Banana", "Orange"],
+        ["Apple", 66, "Orange"],
+        [24, 34, 44],
+        [81, "Banana", 88],
+        [66, "Banana", "Orange"],
+        ["Apple", 55, "Orange"],
+        ["Apple", "Banana", 33],
+        [22, "Banana", "Orange"],
+        ["Apple", 11, "Orange"],
+        ["Apple", "Banana", "Orange"],
+        ["Apple", "Banana", "Orange"],
+        ["Apple", "Banana", "Orange"],
+        ["Apple", "Banana", "Orange"],
+        ["Apple", "Banana", "Orange"],
+      ];
+      let l4 = [
+        { a: 3, b: "Yellow", c: "Yes" },
+        { a: 22, b: 11, c: "Nein" },
+        { a: "Blue", b: "Pink", c: "Bla" },
+        { a: 3, b: "Yellow", c: "Yes" },
+        { a: 2, b: 5, c: "Nein" },
+        { a: "Blue", b: "Pink", c: "Bla" },
+        { a: 3, b: "Yellow", c: "Yes" },
+        { a: 2, b: 1, c: "Nein" },
+        { a: "Blue", b: "Pink", c: "Bla" },
+        { a: 3, b: "Yellow", c: "Yes" },
+        { a: 222, b: 11, c: "Nein" },
+        { a: "Blue", b: "Pink", c: "Bla" },
+        { a: 3, b: "Yellow", c: "Yes" },
+        { a: 2, b: 11, c: "Nein" },
+        { a: "Blue", b: "Pink", c: "Bla" },
+        { a: 3, b: "Yellow", c: "Yes" },
+        { a: 2, b: 11, c: "Nein" },
+        { a: "Blue", b: "Pink", c: "Bla" },
+        { a: 2, b: 11, c: "Nein" },
+        { a: "Blue", b: "Pink", c: "Bla" },
+      ];
+
+      let newList = [];
+      let item = {
+        Zahl: "",
+        Wort: "",
+        Liste: "",
+        Extra: "",
+      };
+
+      for (let i = 0; i < l1.length; i++) {
+        item.Zahl = l1[i];
+        item.Wort = l2[i];
+        item.Liste = l3[i];
+        item.Extra = l4[i];
+        newList.push(item);
+        item = {
+          Zahl: "",
+          Wort: "",
+          Liste: "",
+          Extra: "",
+        };
+      }
+
+      console.log(newList);
+      let con = document.getElementsByTagName("div")[0];
+
+      function toHtml() {
+        con.innerHTML = `
+            <table class="w-screen">
+                <thead>
+                    <tr>
+                        <th>Alle Zahlen</th>
+                        <th>Alle Woerter</th>
+                        <th>Alle Listen</th>
+                        <th>Alle Extras (Wenn A un B zahlen sind: Addieren)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr >
+                        <td class="border border-black bg-red-200 h-96 break-all p-4">${spalte1()}</td>
+                        <td class="border border-black bg-orange-200 h-96 break-all p-4">${spalte2()}</td>
+                        <td class="border border-black bg-yellow-200 h-96 break-all p-4">${spalte3()}</td>
+                        <td class="border border-black bg-blue-200 h-96 break-all p-4">${spalte4()}</td>
+                    </tr>
+                </tbody>
+            </table>
+        `;
+      }
+
+      function spalte1() {
+        let initListe = [...l1];
+        console.log(initListe);
+        l2.forEach((i) => {
+          if (typeof i === "number") initListe.push(i);
+        });
+
+        for (let i of l3) {
+          i.forEach((w) => {
+            if (typeof w === "number") initListe.push(w);
+          });
+        }
+        l4.forEach((i) => {
+          if (typeof i.a === "number") initListe.push(i.a);
+          if (typeof i.b === "number") initListe.push(i.b);
+          if (typeof i.c === "number") initListe.push(i.c);
+        });
+        console.log("OUT:", initListe);
+        return initListe;
+      }
+      function spalte2() {
+        let initListe = [...l2];
+
+        l1.forEach((i) => {
+          if (typeof i === "string") initListe.push(i);
+        });
+
+        for (let i of l3) {
+          i.forEach((w) => {
+            if (typeof w === "string") initListe.push(w);
+          });
+        }
+
+        l4.forEach((i) => {
+          if (typeof i.a === "string") initListe.push(i.a);
+          if (typeof i.b === "string") initListe.push(i.b);
+          if (typeof i.c === "string") initListe.push(i.c);
+        });
+
+        return initListe;
+      }
+
+      function spalte3() {
+        let initListe = [];
+
+        for (let o = 0; o < newList.length; o++) {
+          for (let e = 0; e < newList[o].Liste.length; e++) {
+            initListe.push(newList[o].Liste[e]);
+          }
+        }
+        return initListe;
+      }
+      function spalte4() {
+        let initListe = [];
+
+        for (let i of l4) {
+          if (typeof i.a === "number" && typeof i.b === "number") {
+            let erg = i.a + i.b;
+            initListe.push(erg);
+            initListe.push(i.c);
+          } else {
+            initListe.push(i.a);
+            initListe.push(i.b);
+            initListe.push(i.c);
+          }
+        }
+        return initListe;
+      }
+
+      toHtml();
+    </script>
+  </body>
+</html>
